@@ -1,6 +1,6 @@
 Name:           rednotebook
 Version:        1.1.1
-Release:        %mkrel 1
+Release:        %mkrel 2
 Summary:        A desktop diary
 Group:          Office
 License:        GPLv2+
