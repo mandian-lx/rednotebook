@@ -1,12 +1,11 @@
 Name:           rednotebook
-Version:        1.1.4
+Version:        1.1.5
 Release:        %mkrel 1
 Summary:        A desktop diary
 Group:          Office
 License:        GPLv2+
 URL:            http://rednotebook.sourceforge.net
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch:      noarch
 BuildRequires:  python-devel
 Requires:       python-yaml
