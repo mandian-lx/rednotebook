@@ -1,5 +1,5 @@
 Name:           rednotebook
-Version:        1.1.5
+Version:        1.1.6
 Release:        %mkrel 1
 Summary:        A desktop diary
 Group:          Office
