@@ -1,6 +1,6 @@
 Name:           rednotebook
-Version:        1.1.6
-Release:        %mkrel 1
+Version:        1.5.0
+Release:        1
 Summary:        A desktop diary
 Group:          Office
 License:        GPLv2+
@@ -27,20 +27,28 @@ and does so in style.
 python setup.py build
 
 %install
-rm -rf %{buildroot}
-python setup.py install \
-	--skip-build \
-	--root %{buildroot}
+%{__python} setup.py install --skip-build --root %{buildroot}
+desktop-file-install                                    \
+    --add-category="Calendar"                           \
+    --delete-original                                   \
+    --dir=%{buildroot}%{_datadir}/applications          \
+    %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
-%clean
-rm -rf %{buildroot}
+%find_lang %name
 
-%files
-%defattr(-,root,root,-)
-%doc AUTHORS CHANGELOG README
+%files -f %{name}.lang
+%doc AUTHORS CHANGELOG LICENSE README
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
-%{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{python_sitelib}/%{name}
+%{_datadir}/icons/hicolor/scalable/apps/*.svg
+%{_datadir}/icons/hicolor/*x*/apps/%{name}.png
+# %{_datadir}/locale/*/
+%dir %{python_sitelib}/%{name}/
+%{python_sitelib}/%{name}/*.py*
+%{python_sitelib}/%{name}/external/
+%{python_sitelib}/%{name}/files/
+%{python_sitelib}/%{name}/gui/
+%{python_sitelib}/%{name}/images/
+%{python_sitelib}/%{name}/util/
 %{python_sitelib}/%{name}*.egg-info
