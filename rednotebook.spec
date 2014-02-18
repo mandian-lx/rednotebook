@@ -1,11 +1,11 @@
 Name:           rednotebook
-Version:        1.7.2
+Version:        1.8.0
 Release:        1
 Summary:        A desktop diary
 Group:          Office
 License:        GPLv2+
 URL:            http://rednotebook.sourceforge.net
-Source0:        https://sourceforge.net/projects/rednotebook/files/%{name}-%{version}.tar.gz
+Source0:        http://sourceforge.net/projects/rednotebook/files/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python-devel
 Requires:       python-yaml
@@ -50,3 +50,4 @@ desktop-file-install                                    \
 %{py_puresitedir}/%{name}/images/
 %{py_puresitedir}/%{name}/util/
 %{py_puresitedir}/%{name}*.egg-info
+
