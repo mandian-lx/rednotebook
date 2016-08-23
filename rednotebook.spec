@@ -1,53 +1,60 @@
-Name:           rednotebook
-Version:        1.8.0
-Release:        2
-Summary:        A desktop diary
-Group:          Office
-License:        GPLv2+
-URL:            http://rednotebook.sourceforge.net
-Source0:        http://sourceforge.net/projects/rednotebook/files/%{name}-%{version}.tar.gz
-BuildArch:      noarch
-BuildRequires:  python-devel
-Requires:       python-yaml
-Requires:       pygtk2.0
-Requires:       python-webkitgtk
-Requires:       gnome-python-extras
-Requires:	python-chardet
+%define oname RedNotebook
+%define name %(echo %{oname} | tr [:upper:] [:lower:])
+
+Summary:	A modern desktop journal
+Name:		%{name}
+Version:	1.13
+Release:	0
+License:	( GPLv2+ and LGPLv3+ ) or GPLv3+
+Group:		Office
+URL:		http://%{name}.sourceforge.net/
+Source0:	http://sourceforge.net/projects/rednotebook/files/%{name}-%{version}.tar.gz
+#Source0:	https://github.com/jendrikseipp/%{name}/archive/v%{version}.tar.gz
+BuildArch:	noarch
+
+BuildRequires:	python2
+BuildRequires:	desktop-file-utils
+
+Requires:	pygtk2.0
+Requires:	python2
+Requires:	python2-yaml
+Requires:	python-webkitgtk # wrong name, should be python2-webkitgtk
+#Suggests:	pygtkspellcheck
 
 %description
-RedNotebook is a desktop diary that makes it very easy for you
-to keep track of the stuff you do and the thoughts you have. This
-journal software helps you to write whole passages or just facts,
-and does so in style.
+RedNotebook is a modern desktop journal. It lets you format, tag and search
+your entries. You can also add pictures, links and customizable templates,
+spell check your notes, and export to plain text, HTML, Latex or PDF.
+
+%files -f FILELIST
+%{_iconsdir}/hicolor/*/apps/%{name}.png
+%doc README.md
+%doc CHANGELOG
+%doc LICENSE
+
+#----------------------------------------------------------------------------
 
 %prep
 %setup -q
 
 %build
-python setup.py build
+%{__python2} setup.py build
 
 %install
-python setup.py install --skip-build --root %{buildroot}
-desktop-file-install                                    \
-    --add-category="Calendar"                           \
-    --delete-original                                   \
-    --dir=%{buildroot}%{_datadir}/applications          \
-    %{buildroot}/%{_datadir}/applications/%{name}.desktop
+%{__python2} setup.py install --root=%{buildroot} --record=FILELIST
 
-%find_lang %{name}
+# remove *.pyc files from FILELIST
+sed -i '/\\*.pyc$/d' FILELIST
 
-%files -f %{name}.lang
-%doc AUTHORS CHANGELOG LICENSE README
-%{_bindir}/%{name}
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/scalable/apps/*.svg
-# % {_datadir}/locale/*/
-%dir %{py_puresitedir}/%{name}/
-%{py_puresitedir}/%{name}/*.py*
-%{py_puresitedir}/%{name}/external/
-%{py_puresitedir}/%{name}/files/
-%{py_puresitedir}/%{name}/gui/
-%{py_puresitedir}/%{name}/images/
-%{py_puresitedir}/%{name}/util/
-%{py_puresitedir}/%{name}*.egg-info
+# icons
+for d in 14 16 22 32 48 64 128 192 256
+do
+	install -dm 0755 %{buildroot}%{_iconsdir}/hicolor/${d}x${d}/apps/
+	cp %{buildroot}%{py2_puresitedir}/%{name}/images/rednotebook-icon/rn-${d}.png \
+	   %{buildroot}%{_iconsdir}/hicolor/${d}x${d}/apps/%{name}.png
+done
+
+%check
+# .desktop file
+desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
