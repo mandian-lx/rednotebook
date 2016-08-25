@@ -51,7 +51,7 @@ sed -i '/\\*.pyc$/d' FILELIST
 for d in 14 16 22 32 48 64 128 192 256
 do
 	install -dm 0755 %{buildroot}%{_iconsdir}/hicolor/${d}x${d}/apps/
-	cp %{buildroot}%{py2_puresitedir}/%{name}/images/rednotebook-icon/rn-${d}.png \
+	cp %{buildroot}%{py_puresitedir}/%{name}/images/rednotebook-icon/rn-${d}.png \
 	   %{buildroot}%{_iconsdir}/hicolor/${d}x${d}/apps/%{name}.png
 done
 
