@@ -1,2 +1,5 @@
-sources:
+removed_sources:
   "rednotebook-1.5.0.tar.gz": 85205eceaac80d1ecb54a27ee12458a60898af66
+sources:
+  "rednotebook-1.13.tar.gz": aac28a15bac13484c214f952184abf942a444cd8
+
