@@ -8,7 +8,8 @@ Release:	0
 License:	( GPLv2+ and LGPLv3+ ) or GPLv3+
 Group:		Office
 URL:		http://%{name}.sourceforge.net/
-Source0:	http://sourceforge.net/projects/rednotebook/files/%{name}-%{version}.tar.gz
+Source0:	%{name}-%{version}.tar.gz
+#Source0:	http://sourceforge.net/projects/rednotebook/files/%{name}-%{version}.tar.gz
 #Source0:	https://github.com/jendrikseipp/%{name}/archive/v%{version}.tar.gz
 BuildArch:	noarch
 
